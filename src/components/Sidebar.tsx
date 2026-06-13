@@ -1,5 +1,5 @@
 import React from "react";
-import { LayoutDashboard, TrendingUp, Map, Wheat, ShieldAlert, FileText, CreditCard, Leaf, ChevronRight } from "lucide-react";
+import { LayoutDashboard, TrendingUp, Map, Wheat, ShieldAlert, FileText, CreditCard, Leaf, ChevronRight, History } from "lucide-react";
 
 interface SidebarProps {
   currentPage: string;
@@ -14,15 +14,17 @@ export const Sidebar: React.FC<SidebarProps> = ({ currentPage, onPageChange, use
       items: [
         { id: "dashboard", label: "Dashboard Workspace", icon: LayoutDashboard },
         { id: "prices", label: "Price Forecasting Matrix", icon: TrendingUp },
-        { id: "suitability", label: "Geospatial Suitability Grid", icon: Map },
-        { id: "yield", label: "Yield Prediction Calculator", icon: Wheat },
-        { id: "risk", label: "Risk Mitigation Evaluation", icon: ShieldAlert }
+        { id: "suitability", label: "Suitability Grid", icon: Map },
+        { id: "yield", label: "Yield Prediction", icon: Wheat },
+        { id: "risk", label: "Risk Evaluation", icon: ShieldAlert },
+        { id: "history", label: "Analysis History", icon: History },
+        { id: "reports", label: "Analytics Reports", icon: FileText }
       ]
     },
     {
       title: "Core Platform Tools",
       items: [
-        { id: "reports", label: "Telemetry Exporter", icon: FileText },
+        { id: "telemetry", label: "Telemetry Exporter", icon: FileText },
         { id: "subscription", label: "API Plan Tiers", icon: CreditCard }
       ]
     }

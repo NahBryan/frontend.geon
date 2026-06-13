@@ -83,3 +83,63 @@ export const FIN_RISK: Record<string, number> = {
   tomato: 0.82, onion: 0.75, plantain: 0.65, cassava: 0.40, cocoa: 0.60, coffee: 0.58,
   maize: 0.45, rice: 0.50, cocoyam: 0.42, groundnut: 0.55, beans: 0.48, potato: 0.60, palm_oil: 0.45, sorghum: 0.38,
 };
+
+// in types.ts
+export interface HistoryItem {
+  request_id: string;
+  result_id: string;
+  analysis_type: string;
+  is_cached_hit: boolean;
+  created_at: string;
+  crop: string;
+  summary: string;
+  meta: Record<string, unknown>;
+}
+
+export interface HistoryResponse {
+  user_id: string;
+  total_activities: number;
+  history: HistoryItem[];
+}
+
+export interface ReportStatus {
+  report_id: string;
+  report_type: string;
+  format: string;
+  is_ready: boolean;
+  download_url: string;
+  created_at: string;
+  status?: string;
+}
+
+export interface RiskScoreResponse {
+  overall_risk_score: number;
+  risk_level: string;
+  region: string;
+  financial_risk: number;
+  climate_risk: number;
+  agronomic_risk: number;
+  risk_factors: string[];
+  recommendations: string[];
+  metrics: { rmse: number; f1_score: number };
+  subscription_tier: string;
+  cached: boolean;
+  generated_at: string;
+}
+
+export interface SuitabilityResponse {
+  best_crops: string[];
+  suitability_scores: Record<string, number>;
+  recommended_crop: string;
+  soil_ph: number;
+  rainfall: number;
+  humidity: number;
+  temperature: number;
+  elevation: number;
+  region_estimate: string;
+  model_used: string;
+  metrics: Record<string, number>;
+  subscription_tier: string;
+  cached: boolean;
+  generated_at: string;
+}

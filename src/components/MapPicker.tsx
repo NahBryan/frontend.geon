@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import maplibregl from "maplibre-gl";
-import { MapPin, Layers3, Navigation } from "lucide-react";
+import { MapPin, Layers3 } from "lucide-react";
 import "maplibre-gl/dist/maplibre-gl.css";
 
 interface LocationPayload {
@@ -25,7 +25,6 @@ export const Map: React.FC<MapProps> = ({
   const markerRef = useRef<maplibregl.Marker | null>(null);
   
   const [is3DMode, setIs3DMode] = useState<boolean>(mapType === "terrain");
-  const [isLocating, setIsLocating] = useState<boolean>(false);
 
   // Default geocentric tracking baseline (Cameroon Center)
   const defaultCenter: [number, number] = [12.3547, 7.3697];
@@ -70,7 +69,6 @@ export const Map: React.FC<MapProps> = ({
   const requestUserLocationMatrix = () => {
     if (!navigator.geolocation || !mapRef.current) return;
 
-    setIsLocating(true);
     navigator.geolocation.getCurrentPosition(
       (position) => {
         const { latitude, longitude } = position.coords;
@@ -90,11 +88,9 @@ export const Map: React.FC<MapProps> = ({
           name: `User Current Matrix Reference (${latitude.toFixed(4)}°N, ${longitude.toFixed(4)}°E)`
         });
         
-        setIsLocating(false);
       },
       (error) => {
         console.warn("System Geolocation Intercept Failed or Denied. Maintaining standard spatial center matrix.", error);
-        setIsLocating(false);
       },
       { enableHighAccuracy: true, timeout: 8000 }
     );
@@ -130,7 +126,7 @@ export const Map: React.FC<MapProps> = ({
       onSelect({
         lat: e.lngLat.lat,
         lng: e.lngLat.lng,
-        name: `Plot Location Cluster Vector (${e.lngLat.lat.toFixed(4)}°N, ${e.lngLat.lng.toFixed(4)}°E)`
+        name: `Plot Location (${e.lngLat.lat.toFixed(4)}°N, ${e.lngLat.lng.toFixed(4)}°E)`
       });
     });
 
@@ -246,16 +242,6 @@ export const Map: React.FC<MapProps> = ({
         >
           <Layers3 size={13} />
           <span>{is3DMode ? "3D" : "2D"}</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={requestUserLocationMatrix}
-          disabled={isLocating}
-          className="px-3 py-2 rounded-lg border border-slate-200 bg-white hover:bg-slate-50 text-slate-700 text-[11px] font-bold uppercase tracking-wider flex items-center gap-2 cursor-pointer shadow-sm transition-all disabled:opacity-50 outline-none"
-        >
-          <Navigation size={13} className={isLocating ? "animate-spin text-green-600" : "text-green-600"} />
-          <span>{isLocating ? "Locating Array..." : "Find My Position"}</span>
         </button>
       </div>
 

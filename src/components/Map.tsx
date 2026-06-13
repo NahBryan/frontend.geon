@@ -6,7 +6,6 @@ import * as turf from "@turf/turf";
 import {
   MapPin,
   Layers3,
-  Navigation,
   Pencil,
   Trash2,
 } from "lucide-react";
@@ -395,19 +394,6 @@ const { setGlobalLandSize } = useAuth();
         >
           <Layers3 size={13} />
           <span>{is3DMode ? "3D View" : "2D View"}</span>
-        </button>
-
-        <button
-          type="button"
-          onClick={requestUserLocationMatrix}
-          disabled={isLocating}
-          className="flex items-center gap-2 rounded-lg border border-slate-200 bg-white px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-700 shadow-sm transition-all disabled:opacity-50 cursor-pointer hover:bg-slate-50"
-        >
-          <Navigation
-            size={13}
-            className={isLocating ? "animate-spin text-green-600" : "text-green-600"}
-          />
-          <span>{isLocating ? "Locating..." : "Find Position"}</span>
         </button>
 
         {/* REFACTORED TO REAL ACTIONABLE BUTTONS WITH CLICK HANDLERS */}

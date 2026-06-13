@@ -7,7 +7,6 @@ import { AuthLanding } from "./pages/AuthLanding";
 import { Toaster } from "sileo";
 const DashboardLayoutContent = ({ 
   demoLiveToggleState, 
-  setDemoLiveToggleState,
   currentPageTab,
   setCurrentPageTab
 }: {
@@ -58,30 +57,7 @@ const DashboardLayoutContent = ({
             <span className="text-[10px] font-bold text-slate-400 uppercase tracking-wider hidden md:inline">
               Environment Data Vector Sync Protocol:
             </span>
-            
-            {/* Environment Toggle Segment Control */}
-            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
-              <button 
-                onClick={() => setDemoLiveToggleState(true)} 
-                className={`px-3 py-1 rounded-lg text-[10px] font-bold tracking-wider uppercase transition-all duration-150 border-none outline-none cursor-pointer ${
-                  demoLiveToggleState 
-                    ? "bg-white text-slate-800 shadow-sm font-bold" 
-                    : "text-slate-500 hover:text-slate-800"
-                }`}
-              >
-                Demo Pipeline
-              </button>
-              <button 
-                onClick={() => setDemoLiveToggleState(false)} 
-                className={`px-3 py-1 rounded-lg text-[10px] font-bold tracking-wider uppercase transition-all duration-150 border-none outline-none cursor-pointer ${
-                  !demoLiveToggleState 
-                    ? "bg-white text-slate-800 shadow-sm font-bold" 
-                    : "text-slate-500 hover:text-slate-800"
-                }`}
-              >
-                Production Live API
-              </button>
-            </div>
+
           </div>
 
           <div className="flex items-center gap-2">
@@ -111,7 +87,7 @@ export default function App() {
 
   return (
     <AuthProvider>
-      <Toaster position="top-right" />
+      <Toaster position="top-center" />
       <DashboardLayoutContent 
         demoLiveToggleState={demoLiveToggleState}
         setDemoLiveToggleState={setDemoLiveToggleState}
