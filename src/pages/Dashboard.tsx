@@ -733,7 +733,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ activeTab }) => {
                                 {crop}
                               </span>
                               <span className="font-mono text-[11px] font-bold">
-                                {score}%
+                                {score * 100}%
                               </span>
                             </div>
                             <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
