@@ -61,6 +61,7 @@ import type {
   RiskScoreResponse,
   ForecastResponse,
   SuitabilityResponse,
+  LocationPayload,
 } from "@/types";
 interface DashboardProps {
   mockMode: boolean;
@@ -146,6 +147,7 @@ export const Dashboard: React.FC<DashboardProps> = ({ activeTab }) => {
   };
 
   const fetchSuitability = async () => {
+    if (!selectedLocation) return;
     try {
       setLoadingSuitability(true);
       const response = await Suitability(

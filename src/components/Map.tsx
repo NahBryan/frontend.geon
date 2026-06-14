@@ -13,12 +13,8 @@ import {
 import "maplibre-gl/dist/maplibre-gl.css";
 import "@mapbox/mapbox-gl-draw/dist/mapbox-gl-draw.css";
 import { useAuth } from "@/context/AuthContext";
+import type { LocationPayload } from "@/types";
 
-interface LocationPayload {
-  lat: number;
-  lng: number;
-  name: string;
-}
 
 interface MapProps {
   onSelect: (location: LocationPayload) => void;
@@ -39,7 +35,6 @@ export const Map: React.FC<MapProps> = ({
   const drawRef = useRef<MapboxDraw | null>(null);
 const { setGlobalLandSize } = useAuth();
   const [is3DMode, setIs3DMode] = useState<boolean>(mapType === "terrain");
-  const [isLocating, setIsLocating] = useState<boolean>(false);
   const [landArea, setLandArea] = useState<number>(0);
   const [isDrawingMode, setIsDrawingMode] = useState<boolean>(false);
 
@@ -79,7 +74,6 @@ const { setGlobalLandSize } = useAuth();
 
   const requestUserLocationMatrix = () => {
     if (!navigator.geolocation || !mapRef.current) return;
-    setIsLocating(true);
 
     navigator.geolocation.getCurrentPosition(
       (position) => {
@@ -98,11 +92,9 @@ const { setGlobalLandSize } = useAuth();
           name: `Current Position (${latitude.toFixed(4)}°N, ${longitude.toFixed(4)}°E)`,
         });
 
-        setIsLocating(false);
       },
       () => {
-        setIsLocating(false);
-      },
+        },
       {
         enableHighAccuracy: true,
         timeout: 8000,
@@ -227,7 +219,8 @@ const { setGlobalLandSize } = useAuth();
     });
 
     drawRef.current = draw;
-    map.addControl(draw);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    map.addControl(draw as any);
 
     map.on("draw.create", () => {
       calculatePolygonArea();

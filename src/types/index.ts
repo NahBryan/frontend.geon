@@ -143,3 +143,9 @@ export interface SuitabilityResponse {
   cached: boolean;
   generated_at: string;
 }
+
+export interface LocationPayload {
+  lat: number;
+  lng: number;
+  name: string;
+}
